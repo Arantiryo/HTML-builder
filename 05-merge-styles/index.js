@@ -1,7 +1,6 @@
 const fs = require('fs');
 const fsPromises = require('fs/promises');
 const path = require('path');
-const { join } = require('path/posix');
 const process = require('process');
 
 const stylesPath = path.join(__dirname, 'styles');
@@ -27,7 +26,7 @@ async function buildBundle() {
         continue;
       }
 
-      const fh = await fsPromises.open(join(stylesPath, file.name))
+      const fh = await fsPromises.open(path.join(stylesPath, file.name))
       const content = await fh.readFile('utf8');
       writeStream.write(content);
     }
