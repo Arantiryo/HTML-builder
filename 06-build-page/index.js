@@ -57,6 +57,11 @@ async function buildCSSBundle() {
     const writeStream = fs.createWriteStream(bundleCSSPath);
     const files = await fsPromises.readdir(stylesPath, {withFileTypes: true});
 
+    // make sure footer style is at the bottom
+    files.sort((a,b) => {
+      return a.name === 'footer.css' ? 1 : b.name === 'footer.css' ? -1 : 0
+    })
+
     for (const file of files) {
       const type = file[Object.getOwnPropertySymbols(file)[0]];
       const extension = path.extname(file.name);
